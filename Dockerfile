@@ -1,6 +1,8 @@
 FROM resin/beaglebone-debian
 MAINTAINER Sebastian Schneider <mail@sesc.eu>
 
+RUN [ "cross-build-start" ]
+
 RUN apt-get update && \
     apt-get install -y apt-utils
 
@@ -20,6 +22,8 @@ RUN mkdir -p /home/pimatic/pimatic-app && \
     cp pimatic-app/node_modules/pimatic/config_default.json pimatic-app/config.json
 
 RUN sed -i "s/\"password\": \"\"/\"password\": \"admin\"/g" /home/pimatic/pimatic-app/config.json
+
+RUN [ "cross-build-end" ]
 
 EXPOSE 80
 
