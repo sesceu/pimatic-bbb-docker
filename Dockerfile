@@ -1,4 +1,4 @@
-FROM resin/beaglebone-debian
+FROM resin/armv7hf-debian-qemu
 MAINTAINER Sebastian Schneider <mail@sesc.eu>
 
 RUN [ "cross-build-start" ]
