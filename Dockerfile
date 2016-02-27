@@ -9,7 +9,7 @@ RUN apt-get update && \
 RUN apt-get install -y curl git python build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget --no-check-certificate -O nodejs.tar.gz https://nodejs.org/dist/v0.10.5/node-v0.10.5-linux-arm-pi.tar.gz
+RUN curl -sL https://nodejs.org/dist/v0.10.5/node-v0.10.5-linux-arm-pi.tar.gz > nodejs.tar.gz
 RUN tar xf nodejs.tar.gz -C /usr/local/ --strip-components 1
 RUN git config --global http.sslVerify false
 
