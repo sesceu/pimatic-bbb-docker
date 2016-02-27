@@ -9,7 +9,6 @@ RUN apt-get update && \
 RUN apt-get install -y curl git python build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-#    apt-get install -y build-essential curl apt-utils git dialog wget python && \
 RUN curl -sL https://nodejs.org/dist/v0.10.5/node-v0.10.5-linux-arm-pi.tar.gz > nodejs.tar.gz
 RUN tar xf nodejs.tar.gz -C /usr/local/ --strip-components 1
 RUN git config --global http.sslVerify false
@@ -22,6 +21,10 @@ RUN mkdir -p /home/pimatic/pimatic-app && \
     cp pimatic-app/node_modules/pimatic/config_default.json pimatic-app/config.json
 
 RUN sed -i "s/\"password\": \"\"/\"password\": \"admin\"/g" /home/pimatic/pimatic-app/config.json
+
+COPY ~/pimatic_initialize.patch /home/pimatic/
+RUN patch pimatic-app/node_modules/pimatic.js pimatic_initlialize.patch && \
+    ./node_modules/pimatic/pimatic.js initialize
 
 RUN [ "cross-build-end" ]
 
